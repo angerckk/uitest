@@ -1,0 +1,141 @@
+-- Gui to Lua
+-- Version: 3.2
+local library = {}
+
+function library:CreateWindow()
+    local ScreenGui = Instance.new("ScreenGui")
+    local Main = Instance.new("Frame")
+    local ScrollingFrame = Instance.new("ScrollingFrame")
+    local UIGridLayout = Instance.new("UIGridLayout")
+    local Title = Instance.new("TextLabel")
+    local SearchFrame = Instance.new("Frame")
+    local Icon = Instance.new("ImageLabel")
+    local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+    local Search = Instance.new("TextBox")
+    local DraggableFrame = Instance.new("Frame")
+    
+    --Properties:
+    
+    ScreenGui.Parent = game.Workspace
+    ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    Main.Name = "Main"
+    Main.Parent = ScreenGui
+    Main.BackgroundColor3 = Color3.fromRGB(23, 23, 23)
+    Main.Position = UDim2.new(0.170333132, 0, 0.0662576705, 0)
+    Main.Size = UDim2.new(0, 354, 0, 481)
+    
+    ScrollingFrame.Parent = Main
+    ScrollingFrame.Active = true
+    ScrollingFrame.BackgroundColor3 = Color3.fromRGB(23, 23, 23)
+    ScrollingFrame.BorderSizePixel = 0
+    ScrollingFrame.Position = UDim2.new(0.0282485876, 0, 0.276507288, 0)
+    ScrollingFrame.Size = UDim2.new(0, 334, 0, 348)
+    ScrollingFrame.ScrollBarThickness = 0
+    
+    UIGridLayout.Parent = ScrollingFrame
+    UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIGridLayout.CellSize = UDim2.new(0, 164, 0, 50)
+
+    Title.Name = "Title"
+Title.Parent = Main
+Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundTransparency = 1.000
+Title.Position = UDim2.new(0.0282485876, 0, 0, 0)
+Title.Size = UDim2.new(0, 200, 0, 33)
+Title.Font = Enum.Font.GothamBlack
+Title.Text = "Da Hood Auto Buy"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 30.000
+Title.TextXAlignment = Enum.TextXAlignment.Left
+
+SearchFrame.Name = "SearchFrame"
+SearchFrame.Parent = Main
+SearchFrame.BackgroundColor3 = Color3.fromRGB(23, 23, 23)
+SearchFrame.BorderColor3 = Color3.fromRGB(15, 15, 15)
+SearchFrame.Position = UDim2.new(0.0282485876, 0, 0.17463617, 0)
+SearchFrame.Size = UDim2.new(0, 333, 0, 36)
+
+Icon.Name = "Icon"
+Icon.Parent = SearchFrame
+Icon.BackgroundTransparency = 1.000
+Icon.Position = UDim2.new(0.0180180185, 0, 0.222222224, 0)
+Icon.Size = UDim2.new(0, 20, 0, 20)
+Icon.Image = "rbxassetid://7072721559"
+
+UIAspectRatioConstraint.Parent = Icon
+
+Search.Name = "Search"
+Search.Parent = SearchFrame
+Search.BackgroundColor3 = Color3.fromRGB(23, 23, 23)
+Search.BorderSizePixel = 0
+Search.Position = UDim2.new(0.102102101, 0, 0.166666672, 0)
+Search.Size = UDim2.new(0, 310, 0, 24)
+Search.Font = Enum.Font.SourceSans
+Search.PlaceholderText = "Search"
+Search.Text = ""
+Search.TextColor3 = Color3.fromRGB(178, 178, 178)
+Search.TextSize = 20.000
+Search.TextXAlignment = Enum.TextXAlignment.Left
+
+DraggableFrame.Name = "DraggableFrame"
+DraggableFrame.Parent = Main
+DraggableFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DraggableFrame.BackgroundTransparency = 1.000
+DraggableFrame.Position = UDim2.new(0, 0, -0.00623700628, 0)
+DraggableFrame.Size = UDim2.new(0, 354, 0, 36)
+
+-- Scripts:
+
+local function CYVZC_fake_script() -- Main.LocalScript 
+	local script = Instance.new('LocalScript', Main)
+
+	local scroll = script.Parent.ScrollingFrame -- CHANGE THIS TO YOUR SCROLLING FRAME
+	local textBox = script.Parent.Frame.TextBox -- CHANGE THIS TO YOUR TEXT BOX
+	
+	textBox.Changed:Connect(function() -- when the text is changed
+		local text = textBox.Text:lower() -- lowercase search bar text
+		if text ~= "" then -- if it has text
+			local buttons = scroll:GetDescendants() -- all of the buttons
+			for _, button in pairs(buttons) do -- loops through the buttons
+				if button:IsA("TextButton") then -- if it's a button
+					local buttonText = button.Text:lower() -- lowercase button text
+					if string.find(buttonText, text) then -- if search bar text is found in the button's text
+						button.Visible = true -- shows button
+					else -- otherwise
+						button.Visible = false -- hides button
+					end
+				end
+			end
+		else -- if it's empty
+			local buttons = scroll:GetDescendants() -- all buttons
+			for _, button in pairs(buttons) do -- loops through buttons
+				if button:IsA("TextButton") then -- if it's a button
+					button.Visible = true -- shows button
+				end
+			end
+		end
+	end)
+end
+coroutine.wrap(CYVZC_fake_script)()
+end
+local EpicLibrary = {}
+function EpicLibrary:CreateButton(name)
+    local TextButton = Instance.new("TextButton")
+    
+    TextButton.Parent = ScrollingFrame
+    TextButton.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+    TextButton.BorderColor3 = Color3.fromRGB(255, 255, 0)
+    TextButton.BorderSizePixel = 0
+    TextButton.Size = UDim2.new(0, 200, 0, 50)
+    TextButton.Text = name
+    TextButton.ZIndex = 5
+    TextButton.Font = Enum.Font.Gotham
+    TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.TextSize = 16.000
+
+
+
+end
+return EpicLibrary;
+return library;
